@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContentController;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -23,16 +24,7 @@ Route::resource('authors', AuthorController::class);
 
 
 
-Route::get('/categories', function(Request $request){
-    $name = $request->get('name');
+Route::get('/categories', [CategoryController::class, 'index']);
 
-    $category = Category::query()->create([
-        'name' => $name,
-    ]);
-
-    dump($category);
-});
-
-Route::post('/contents', [ContentController::class, 'store']);
-
-Route::get('/contents', [ContentController::class, 'create']);
+Route::get('/contents/create', [ContentController::class, 'store']);
+Route::get('/contents', [ContentController::class, 'index']);

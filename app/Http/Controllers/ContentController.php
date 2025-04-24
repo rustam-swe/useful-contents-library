@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Content;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ContentController extends Controller
      */
     public function index()
     {
-        //
+        return Content::all();
     }
 
     /**
@@ -20,7 +21,6 @@ class ContentController extends Controller
      */
     public function create()
     {
-        dump(Content::all());
     }
 
     /**
@@ -29,12 +29,13 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         $content = Content::query()->create([
-            'title'       => $request->get('title'),
-            'description' => $request->input('description'),
-            'url'         => $request->query('url'),
-            'category_id' => $request->category_id,
+            'title'       => ucfirst(fake()->words(rand(3,7), true)),
+            'description' => fake()->realText('100'),
+            'url'         => fake()->url,
+            'category_id' => Category::query()->inRandomOrder()->value('id'),
         ]);
-        dd($content);
+
+        return $content;
     }
 
     /**
