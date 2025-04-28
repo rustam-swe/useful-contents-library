@@ -13,7 +13,9 @@ class ContentController extends Controller
      */
     public function index()
     {
-        return Content::all();
+        $contents = Content::all();
+
+        return view('contents', ['contents' => $contents]);
     }
 
     /**
@@ -43,7 +45,8 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        //
+        $content->load('authors');
+        return view('content', ['content' => $content]);
     }
 
     /**
