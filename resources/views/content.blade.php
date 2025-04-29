@@ -57,8 +57,9 @@
 
     <div class="mb-3">
         <h5 class="mb-2">Genres</h5>
-        <span class="badge bg-success">Fantasy</span>
-        <span class="badge bg-success">Drama</span>
+        @foreach($content->genres as $genre)
+            <span class="badge bg-success">{{$genre->name}}</span>
+        @endforeach
     </div>
 </div>
 

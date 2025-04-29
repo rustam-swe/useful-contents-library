@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Content;
+use App\Models\Genre;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -31,13 +35,15 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         $content = Content::query()->create([
-            'title'       => ucfirst(fake()->words(rand(3,7), true)),
-            'description' => fake()->realText('100'),
-            'url'         => fake()->url,
-            'category_id' => Category::query()->inRandomOrder()->value('id'),
+            'title'       => $request->get('title'),
+            'description' => $request->get('description'),
+            'url'         => $request->get('url'),
+            'category_id' => $request->get('category_id'),
         ]);
 
-        return $content;
+        $content->genres()->attach($request->get('genre_id'));
+
+        return redirect('/contents')->with('success', 'Content created successfully.');
     }
 
     /**
@@ -45,8 +51,8 @@ class ContentController extends Controller
      */
     public function show(Content $content)
     {
-        $content->load('authors');
-        return view('content', ['content' => $content]);
+        $content->load('authors', 'genres');
+        return view('content', compact('content'));
     }
 
     /**
@@ -71,5 +77,13 @@ class ContentController extends Controller
     public function destroy(Content $content)
     {
         //
+    }
+
+    public function adminIndex(): View|Application|Factory
+    {
+        $categories = Category::all('id', 'name')->pluck('name', 'id');
+        $genres     = Genre::all('id', 'name')->pluck('name', 'id');
+
+        return view('admin.index', compact('categories', 'genres'));
     }
 }

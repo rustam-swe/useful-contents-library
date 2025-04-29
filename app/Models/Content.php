@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Content extends Model
 {
@@ -26,6 +27,11 @@ class Content extends Model
             'content_id', // foreign key on the pivot table for this model
             'author_id', // foreign key on the pivot table for the related model
         );
+    }
+
+    public function genres(): BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class);
     }
 
     /**
