@@ -32,7 +32,12 @@ Route::post('/tokens/create', function (Request $request) {
         'token' => $token->plainTextToken
     ], 201);
 });
-
+Route::get('/contents', function (){
+    return \App\Models\Content::all();
+});
+Route::get('/contents/{id}', function ($id){
+    return \App\Models\Content::findOrFail($id);
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         dump($request->user());
