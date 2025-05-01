@@ -1,4 +1,5 @@
-FROM php:8.4-fpm
+FROM --platform=linux/amd64 php:8.4-fpm
+
 WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
@@ -13,9 +14,25 @@ RUN apt-get update && apt-get install -y \
     git \
     nano \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip
+    zsh \
+ && docker-php-ext-install \
+    pdo \
+    pdo_pgsql \
+    pgsql \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
+    zip \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-#RUN chown -R www-data:www-data /var/www \
-#    && chmod -R 755 /var/www/storage \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+ && apt-get install -y nodejs \
+ && npm install -g npm@latest
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
+ && chsh -s $(which zsh)

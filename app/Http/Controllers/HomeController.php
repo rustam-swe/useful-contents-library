@@ -10,8 +10,8 @@ use Illuminate\Foundation\Application;
 
 class HomeController extends Controller
 {
-    public function home(): View|Application|Factory
+    public function index(): View|Application|Factory
     {
-        return view('home');
+        return view('layouts.main');
     }
 }
