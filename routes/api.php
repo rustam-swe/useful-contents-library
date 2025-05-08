@@ -47,3 +47,5 @@ Route::middleware('auth:sanctum')->group(function () {
         return \App\Models\Genre::all();
     });
 });
+
+Route::prefix('v1')->group(base_path('routes/api/v1.php'));

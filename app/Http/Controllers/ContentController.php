@@ -17,7 +17,7 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $contents = Content::all();
+        $contents = (new \App\Services\Contents\Content)->all();
 
         return view('contents', ['contents' => $contents]);
     }
