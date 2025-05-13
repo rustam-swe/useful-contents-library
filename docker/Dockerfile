@@ -1,38 +1,31 @@
-FROM --platform=linux/amd64 php:8.4-fpm
+FROM --platform=linux/amd64 php:8.4-fpm as base
 
 WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
-    build-essential \
     libpng-dev \
     libjpeg-dev \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
-    unzip \
-    curl \
-    git \
-    nano \
     libpq-dev \
-    zsh \
  && docker-php-ext-install \
     pdo \
     pdo_pgsql \
     pgsql \
     mbstring \
-    exif \
-    pcntl \
     bcmath \
     gd \
     zip \
- && apt-get clean \
+ && apt-get purge -y --auto-remove \
  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
- && apt-get install -y nodejs \
- && npm install -g npm@latest
+RUN composer install --optimize-autoloader --no-dev --no-scripts
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
- && chsh -s $(which zsh)
+RUN php artisan config:cache \
+ && php artisan route:cache \
+ && php artisan view:cache
+
+RUN chown -R www-data:www-data /var/www
