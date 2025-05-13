@@ -22,3 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 .DS_Store
+docker/Dockerfile.dev
+docker-compose.dev.yml

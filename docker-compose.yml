@@ -2,7 +2,7 @@ services:
     app:
         build:
             context: docker
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile
         container_name: content-hub-app
         volumes:
             - .:/var/www
