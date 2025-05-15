@@ -15,6 +15,6 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > key.pem
           chmod 600 key.pem
 
-          ssh -o StrictHostKeyChecking=no -i key.pem user@your.server.ip "echo '✅ Connected!' && uptime"
+          ssh -o StrictHostKeyChecking=no -i key.pem root@185.191.141.44 "echo '✅ Connected!' && uptime"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
