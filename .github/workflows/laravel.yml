@@ -1,32 +1,20 @@
-name: Simple Laravel CI
+name: Test SSH Connection
 
 on: [push]
 
 jobs:
-  check-actions:
+  ssh-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Clone your repo code into the runner
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Step 2: Set up PHP (Laravel needs PHP to run)
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-
-      # Step 3: Install dependencies via Composer
-      - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist
-
-      # Step 4: Create a simple .env and app key for artisan to work
-      - name: Set up environment
+      - name: Connect to remote server
         run: |
-          cp .env.example .env
-          php artisan key:generate
+          echo "$SSH_PRIVATE_KEY" > key.pem
+          chmod 600 key.pem
 
-      # Step 5: Run any simple Laravel command to verify setup
-      - name: Run Laravel command
-        run: php artisan --version
+          ssh -o StrictHostKeyChecking=no -i key.pem user@your.server.ip "echo '✅ Connected!' && uptime"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
