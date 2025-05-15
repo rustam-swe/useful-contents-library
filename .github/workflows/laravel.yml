@@ -3,7 +3,7 @@ name: Deploy Laravel App
 on:
   push:
     branches:
-      - main
+      - rustam-swe-patch-1
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem root@185.191.141.44 << 'EOF'
             cd /var/www/useful-contents-library
-            git pull origin main
+            git pull origin rustam-swe-patch-1
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
             php artisan config:cache
