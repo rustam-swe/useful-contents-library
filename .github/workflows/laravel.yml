@@ -26,8 +26,8 @@ jobs:
             cd /var/www/useful-contents-library
             git pull origin rustam-swe-patch-1
             composer install --no-interaction --prefer-dist --optimize-autoloader
-            php artisan migrate --force
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
+            docker exec contnet-hub-app php artisan migrate --force
+            docker exec contnet-hub-app php artisan config:cache
+            docker exec contnet-hub-app php artisan route:cache
+            docker exec contnet-hub-app php artisan view:cache
           EOF
