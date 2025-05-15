@@ -1,15 +1,32 @@
-name: PHP forever
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Simple Laravel CI
+
 on: [push]
+
 jobs:
-  NT4-is-the-best-ever:
+  check-actions:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out repository code
+      # Step 1: Clone your repo code into the runner
+      - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Repodagi fayllar royxati
+
+      # Step 2: Set up PHP (Laravel needs PHP to run)
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      # Step 3: Install dependencies via Composer
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist
+
+      # Step 4: Create a simple .env and app key for artisan to work
+      - name: Set up environment
         run: |
-          ls ${{ github.workspace }}
-      - run: |
-          pwd
+          cp .env.example .env
+          php artisan key:generate
+
+      # Step 5: Run any simple Laravel command to verify setup
+      - name: Run Laravel command
+        run: php artisan --version
