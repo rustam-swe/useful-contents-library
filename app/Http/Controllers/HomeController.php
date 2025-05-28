@@ -12,7 +12,6 @@ class HomeController extends Controller
 {
     public function index(): View|Application|Factory
     {
-        logger()->info('daily log');
-        return view('layouts.main');
+        return view('home');
     }
 }

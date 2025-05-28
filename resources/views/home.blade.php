@@ -1,17 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Content Hub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-</head>
-<body>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+<x-app-layout>
+    <div>
+        <div class="bg-sky-50 h-10"></div>
+        <div class="bg-sky-100 h-10"></div>
+        <div class="bg-sky-200 h-10"></div>
+        <div class="bg-sky-300 h-10"></div>
+        <div class="bg-sky-400 h-10"></div>
+        <div class="bg-sky-500 h-10"></div>
+        <div class="bg-sky-600 h-10"></div>
+        <div class="bg-sky-700 h-10"></div>
+        <div class="bg-yellow-500 h-10"></div>
+        <div class="bg-purple-950 h-10"></div>
+        <div class="bg-black h-10"></div>
+    </div>
+    <h1 class="text-3xl  underline bg-red-800">
+        Hello world!
+    </h1>
+</x-app-layout>

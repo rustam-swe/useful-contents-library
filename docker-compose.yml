@@ -3,7 +3,7 @@ services:
         build:
             context: docker
             dockerfile: Dockerfile
-        container_name: content-hub-app
+        container_name: elnurbek-content-hub-app
         volumes:
             - .:/var/www
         depends_on:

@@ -32,3 +32,8 @@ Route::get('/iframe', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/fake-login', function(){
+    $email = request()->query('email');
+    (new \App\Actions\CheckAgainstDisposableMail())($email);
+});
+

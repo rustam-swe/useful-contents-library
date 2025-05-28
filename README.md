@@ -59,3 +59,19 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+1. Dockerfile va docker-compose fayllarini dev va prodga ajrating (misol: Dockerfile va Dockerfile.dev)
+2. .env ni development uchun tayyorlang (.env.dev)
+3. .env dat APP_ENV=production ga o'zgartiring
+3. public/build papkani .gitigore da o'chirib tashlang
+4. npm run build buyrug'ini yurgizing
+5. Konteyner nomlarini o'zgartirib chiqing (docker-compose)
+6. Portlarni o'zgartirib chiqing
+7. Dockerfile workdirni o'zgartiring 
+8. SSH orqali serverga ulaning 
+9. /var/www/ismingiz degan papka yarating va ichiga kiring 
+10. git clone . repozitoriyingizdan qiling
+11. "ismingiz" papkasiga kiring
+12. .env fayl yarating
+13. docker ni build qiling
